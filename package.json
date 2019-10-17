@@ -10,17 +10,11 @@
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
-<<<<<<< HEAD
-<<<<<<< HEAD
     "morgan": "~1.9.1",
-=======
-=======
     "mongoose": "^5.7.5",
->>>>>>> d1915cd8c159adeafa8f8dde17a2c9c42089cf40
     "morgan": "~1.9.1"
   },
   "devDependencies": {
->>>>>>> 0d6c78b1fe4f7aba8709751d8a2c39b601e944cb
     "nodemon": "^1.19.4"
   }
 }
