@@ -4,12 +4,12 @@ const Subject = require('../models/Subjects');
 
 /* GET sujects listing. */
 router.get('/', function(req, res, next) {
-  subjects = Subject.find().exec((err, subjects) => res.json(subjects));
+  subjects = Subject.aggregate([{ $project: { _id: 0, name: 1, nbquestions: { $size: '$questions' } }}]).exec((err, subjects) => res.json(subjects));
 });
 
 /* GET subject */
 router.get('/:id', function(req, res) {
-  Subject.findById(req.params.id).populate('questions.id').exec((err, subject) => res.json(subject));
+  Subject.findById(req.params.id, { _id: 0, name: 1, questions: 1 }).populate('questions', {'text': 1, _id: 0}).exec((err, subject) => res.json(subject));
 });
 
 /* POST subject */
