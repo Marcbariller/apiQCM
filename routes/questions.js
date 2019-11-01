@@ -9,7 +9,12 @@ router.get('/', function(req, res) {
 
 /* GET question */
 router.get('/:id', function(req, res) {
-  Question.findById(req.params.id).exec((err, user) => res.json(user));
+  Question.findById(req.params.id, function (err, question) {
+    if (err) {
+      res.json(err);
+    }
+    res.json(question);
+  });
 });
 
 module.exports = router;
