@@ -17,4 +17,14 @@ router.get('/:id', function(req, res) {
   });
 });
 
+/* DELETE question */
+router.delete('/:id', function(req, res) {
+  Question.findByIdAndDelete(req.params.id, function (err, question) {
+    if (err) {
+      res.json(err);
+    }
+    res.json(question);
+  });
+});
+
 module.exports = router;
