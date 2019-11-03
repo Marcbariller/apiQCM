@@ -9,7 +9,10 @@ router.get('/', function(req, res, next) {
 
 /* GET subject */
 router.get('/:id', function(req, res) {
-  Subject.findById(req.params.id).populate('questions.id').exec((err, subject) => res.json(subject));
+  Subject.findById(req.params.id, function (err, subject) {
+    if (err) res.json(err);
+    res.json(subject);
+  }).populate('questions');
 });
 
 /* POST subject */
