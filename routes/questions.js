@@ -4,7 +4,12 @@ const Question = require('../models/Questions');
 
 /* GET questions listing. */
 router.get('/', function(req, res) {
-  Question.find().exec((err, questions) => res.json(questions));
+  Question.find(function(err, questions) {
+    if (err) {
+      res.json(err);
+    }
+    res.json(questions);
+  }).populate('subject', 'name');
 });
 
 /* GET question */
@@ -14,7 +19,7 @@ router.get('/:id', function(req, res) {
       res.json(err);
     }
     res.json(question);
-  });
+  }).populate('subject', 'name');
 });
 
 /* DELETE question */
