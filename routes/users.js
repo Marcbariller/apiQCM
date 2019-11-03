@@ -5,7 +5,22 @@ const User = require('../models/Users');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  User.find().exec((err, users) => res.json(users));
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  User.count(function(err, count) {
+    if (err) res.json(err);
+    User.find(function(err, questions) {
+      if (err) res.json(err);
+      res.json({
+        count: count,
+        page: page,
+        limit: limit,
+        results: questions
+      });
+    }).skip(skip)
+      .limit(limit);
+  });
 });
 
 /* POST user */
