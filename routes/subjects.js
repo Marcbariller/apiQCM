@@ -4,7 +4,22 @@ const Subject = require('../models/Subjects');
 
 /* GET sujects listing. */
 router.get('/', function(req, res, next) {
-  subjects = Subject.find().exec((err, subjects) => res.json(subjects));
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  Subject.count(function(err, count) {
+    if (err) res.json(err);
+    Subject.find(function(err, subjects) {
+      if (err) res.json(err);
+      res.json({
+        count: count,
+        page: page,
+        limit: limit,
+        results: subjects
+      });
+    }).skip(skip)
+      .limit(limit);
+  });
 });
 
 /* GET subject */
