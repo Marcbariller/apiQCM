@@ -4,12 +4,23 @@ const Question = require('../models/Questions');
 
 /* GET questions listing. */
 router.get('/', function(req, res) {
-  Question.find(function(err, questions) {
-    if (err) {
-      res.json(err);
-    }
-    res.json(questions);
-  }).populate('subject', 'title');
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  Question.count(function(err, count) {
+    if (err) res.json(err);
+    Question.find(function(err, questions) {
+      if (err) res.json(err);
+      res.json({
+        count: count,
+        page: page,
+        limit: limit,
+        results: questions
+      });
+    }).populate('subject', 'title')
+      .skip(skip)
+      .limit(limit);
+  });
 });
 
 /* GET question */
