@@ -33,6 +33,12 @@ router.get('/:id', function(req, res) {
   }).populate('subject', 'title');
 });
 
+/* POST question */
+router.post('/', function(req, res) {
+  let question = new Question(req.body);
+  question.save((err, question) => res.json(question));
+});
+
 /* PUT question */
 router.put('/:id', function(req, res) {
   Question.findByIdAndUpdate(req.params.id, req.body, function (err, question) {
