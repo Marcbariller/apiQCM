@@ -33,6 +33,14 @@ router.get('/:id', function(req, res) {
   }).populate('subject', 'title');
 });
 
+/* PUT question */
+router.put('/:id', function(req, res) {
+  Question.findByIdAndUpdate(req.params.id, req.body, function (err, question) {
+    if (err) res.json(err);
+    res.json(question);
+  });
+});
+
 /* DELETE question */
 router.delete('/:id', function(req, res) {
   Question.findByIdAndDelete(req.params.id, function (err, question) {
