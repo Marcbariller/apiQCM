@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
       res.json(err);
     }
     res.json(questions);
-  }).populate('subject', 'name');
+  }).populate('subject', 'title');
 });
 
 /* GET question */
@@ -19,7 +19,7 @@ router.get('/:id', function(req, res) {
       res.json(err);
     }
     res.json(question);
-  }).populate('subject', 'name');
+  }).populate('subject', 'title');
 });
 
 /* DELETE question */
