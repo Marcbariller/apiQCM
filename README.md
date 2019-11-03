@@ -6,7 +6,7 @@
 1. Importation de la base de donnée
 
 ```
-mongorestore --drop --gzip --archive=./citybike.gz
+mongorestore --drop --gzip --archive=./qcm.gz
 ```
 
 2. Installation des dépendances
